@@ -15,25 +15,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.projet_fin_annee.DTO.AppointmentDTO;
+import com.example.projet_fin_annee.Dto.AppointmentDTO;
+import com.example.projet_fin_annee.Exceptions.ResourceNotFoundException;
 import com.example.projet_fin_annee.Service.IAppointmentService;
-import com.example.projet_fin_annee.Service.IPatientService;
-import com.example.projet_fin_annee.exception.ResourceNotFoundException;
 
 @RestController
-@RequestMapping("/") // Tw marka7t path
+@RequestMapping("/appoinments") // Tw marka7t path
 public class AppointmentController {
-
+	
+	@Autowired
     private IAppointmentService appointmentService;
 
-  
-    private IPatientService patientService;
-
-    @Autowired
-    public AppointmentController(IAppointmentService appointmentService, IPatientService patientService) {
-        this.appointmentService = appointmentService;
-        this.patientService = patientService;
-    }
 
     
     @GetMapping
@@ -41,21 +33,6 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.findAll());
     }
 
-    @PostMapping
-    public ResponseEntity<AppointmentDTO> save(@RequestBody AppointmentDTO appointmentDTO) {
-        ResponseEntity<AppointmentDTO> response;
-
-        
-        if (patientService.findById(appointmentDTO.getPatient_id()).isPresent()) {
-           
-            response = ResponseEntity.ok(appointmentService.save(appointmentDTO));
-
-        } else {
-            
-            response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        return response;
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<AppointmentDTO> findById(@PathVariable Long id) throws ResourceNotFoundException {
@@ -68,18 +45,6 @@ public class AppointmentController {
         }
     }
 
-    @PutMapping
-    public ResponseEntity<AppointmentDTO> update(@RequestBody AppointmentDTO appointmentDTO) throws Exception {
-        ResponseEntity<AppointmentDTO> response;
-
-        if (patientService.findById(appointmentDTO.getPatient_id()).isPresent()) {
-            response = ResponseEntity.ok(appointmentService.update(appointmentDTO));
-
-        } else {
-            response = ResponseEntity.badRequest().build();
-        }
-        return response;
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) throws ResourceNotFoundException {

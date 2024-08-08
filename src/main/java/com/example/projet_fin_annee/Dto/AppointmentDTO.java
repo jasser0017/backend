@@ -1,4 +1,4 @@
-package com.example.projet_fin_annee.DTO;
+package com.example.projet_fin_annee.Dto;
 
 public class AppointmentDTO {
     private Long id;

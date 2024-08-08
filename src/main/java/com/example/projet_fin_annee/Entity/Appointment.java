@@ -19,10 +19,6 @@ public class Appointment {
     @Column(name = "appointment_id")
     private Long id;
 
-    @ManyToOne
-    private Patient patient;
-
-
     @Column(name = "date")
     private LocalDate date;
 
@@ -35,17 +31,7 @@ public class Appointment {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-   
+    }   
 
     public LocalDate getDate() {
         return date;

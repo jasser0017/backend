@@ -3,8 +3,8 @@ package com.example.projet_fin_annee.Service;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.projet_fin_annee.DTO.AppointmentDTO;
-import com.example.projet_fin_annee.exception.ResourceNotFoundException;
+import com.example.projet_fin_annee.Dto.AppointmentDTO;
+import com.example.projet_fin_annee.Exceptions.ResourceNotFoundException;
 
 public interface IAppointmentService {
     AppointmentDTO save (AppointmentDTO appointmentDTO);
