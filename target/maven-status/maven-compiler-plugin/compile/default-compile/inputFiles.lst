@@ -3,9 +3,11 @@
 /src/src/main/java/com/example/projet_fin_annee/Configuration/WebConfig.java
 /src/src/main/java/com/example/projet_fin_annee/Configuration/WebSecurityConfig.java
 /src/src/main/java/com/example/projet_fin_annee/Controller/AppointmentController.java
+/src/src/main/java/com/example/projet_fin_annee/Controller/TheropyController.java
 /src/src/main/java/com/example/projet_fin_annee/Dto/AppointmentDTO.java
 /src/src/main/java/com/example/projet_fin_annee/Dto/PatientDTO.java
 /src/src/main/java/com/example/projet_fin_annee/Dto/ReceptionistDTO.java
+/src/src/main/java/com/example/projet_fin_annee/Dto/TheropyDTO.java
 /src/src/main/java/com/example/projet_fin_annee/Entity/Appointment.java
 /src/src/main/java/com/example/projet_fin_annee/Entity/Theropy.java
 /src/src/main/java/com/example/projet_fin_annee/Entity/User.java
