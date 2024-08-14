@@ -20,12 +20,12 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.toSet;
 
 
-@Component
 public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationToken> {
 
 
     @Override
     public AbstractAuthenticationToken convert(@NonNull Jwt source) {
+    	System.out.println(source);
 
         return new JwtAuthenticationToken(
                 source,

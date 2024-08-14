@@ -17,17 +17,10 @@ import com.example.projet_fin_annee.Service.ITheropyService;
 public class TheropyController {
 	@Autowired
 	ITheropyService TheropyService;
-	
-	@GetMapping
-	 
-	    public ResponseEntity<List<TheropyDTO>> findAll() {
-	        return ResponseEntity.ok(TheropyService.findAll());
-	    }
 
-	
-	
-	
-	
-	
+	@GetMapping(value = "/getAll")
+	public ResponseEntity<List<TheropyDTO>> findAll() {
+		return ResponseEntity.ok(TheropyService.findAll());
+	}
 
 }
