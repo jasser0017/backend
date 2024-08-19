@@ -55,5 +55,8 @@ public class TheropyDTO {
 	public void setImg(MultipartFile img) {
 		this.img = img;
 	}
+	public String getImgUrl() {
+        return "data:image/jpeg;base64," + java.util.Base64.getEncoder().encodeToString(imgbyte);
+    }
     
 }
