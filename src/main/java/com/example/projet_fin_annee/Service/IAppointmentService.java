@@ -4,12 +4,17 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.projet_fin_annee.Dto.AppointmentDTO;
+import com.example.projet_fin_annee.Dto.TheropyDTO;
+import com.example.projet_fin_annee.Entity.Appointment;
 import com.example.projet_fin_annee.Exceptions.ResourceNotFoundException;
 
 public interface IAppointmentService {
-    AppointmentDTO save (AppointmentDTO appointmentDTO);
-    Optional<AppointmentDTO> findById(Long id) throws ResourceNotFoundException;
-    AppointmentDTO update(AppointmentDTO appointment) throws Exception;
-    Optional<AppointmentDTO> delete(Long id) throws ResourceNotFoundException;
-    List<AppointmentDTO> findAll();
+	
+    Appointment updateAppointment(Long id, AppointmentDTO appointmentDTO);
+    Optional<Appointment> getAppointmentById(Long id);
+    List<Appointment> getAllAppointments();
+    void acceptAppointment(Long id);
+    void rejectAppointment(Long id);
+	
+	Appointment createAppointment(AppointmentDTO appointmentDTO, String userEmail);
 }

@@ -1,35 +1,41 @@
 package com.example.projet_fin_annee.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.Type;
+
+import com.example.projet_fin_annee.Dto.TheropyDTO;
+
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name="THEROPY")
-
+@Table(name = "THEROPY")
+@Getter
+@Setter
 public class Theropy {
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+    @Column(name = "ID")
     private Long id;
-	
-	@Column(name = "NAME")
-	private String name;
-	
-	
-	
 
-	@Column(name = "DISCRIPTION")
-	private String description;
-	
-	@Column(name="IMAGE")
-	@Lob
-    private byte[] image;
+    @Column(name = "NAME", nullable = false)
+    private String name;
 
+    @Column(name = "DESCRIPTION")
+    private String description;
+    
+    @Column(columnDefinition="oid")
+    @Lob
+    
+    private byte[] img;
+
+
+    
+    
 	public Long getId() {
 		return id;
 	}
@@ -54,18 +60,26 @@ public class Theropy {
 		this.description = description;
 	}
 
-	public byte[] getImage() {
-		return image;
+	public byte[] getImg() {
+		return img;
 	}
 
-	public void setImage(byte[] image) {
-		this.image = image;
+	public void setImg(byte[] img) {
+		this.img = img;
 	}
 	
 	
+	public TheropyDTO getDto() {
+		TheropyDTO theropyDTO = new TheropyDTO();
+		theropyDTO.setId(id);
+		theropyDTO.setName(name);
+		theropyDTO.setDescription(description);
+		theropyDTO.setImgbyte(img);
+		return theropyDTO;
+		
+		
+	}
+
+
     
-	
-	
-	
-
 }

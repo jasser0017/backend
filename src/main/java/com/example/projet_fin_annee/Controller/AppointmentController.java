@@ -1,57 +1,64 @@
 package com.example.projet_fin_annee.Controller;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.example.projet_fin_annee.Dto.AppointmentDTO;
+import com.example.projet_fin_annee.Entity.Appointment;
+import com.example.projet_fin_annee.Exceptions.ResourceNotFoundException;
+import com.example.projet_fin_annee.Service.IAppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.projet_fin_annee.Dto.AppointmentDTO;
-import com.example.projet_fin_annee.Exceptions.ResourceNotFoundException;
-import com.example.projet_fin_annee.Service.IAppointmentService;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/appoinments") // Tw marka7t path
+@RequestMapping("/appointments")
 public class AppointmentController {
-	
-	@Autowired
+
+    @Autowired
     private IAppointmentService appointmentService;
 
-
-    
-    @GetMapping
-    public ResponseEntity<List<AppointmentDTO>> findAll() {
-        return ResponseEntity.ok(appointmentService.findAll());
+   
+   
+    @PostMapping
+    public ResponseEntity<Appointment> createAppointment(
+            @RequestBody AppointmentDTO appointmentDTO, 
+            @RequestParam String userEmail) {
+        
+        
+        Appointment createdAppointment = appointmentService.createAppointment(appointmentDTO, userEmail);
+        return ResponseEntity.ok(createdAppointment);
     }
 
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id, @RequestBody AppointmentDTO appointmentDTO) {
+        Appointment updatedAppointment = appointmentService.updateAppointment(id, appointmentDTO);
+        return updatedAppointment != null ? ResponseEntity.ok(updatedAppointment) : ResponseEntity.notFound().build();
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AppointmentDTO> findById(@PathVariable Long id) throws ResourceNotFoundException {
-        Optional<AppointmentDTO> appointmentToLookFor = appointmentService.findById(id);
-
-        if(appointmentToLookFor.isPresent()) {
-            return ResponseEntity.ok(appointmentToLookFor.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Optional<Appointment>> getAppointmentById(@PathVariable Long id) {
+        Optional<Appointment> appointment = appointmentService.getAppointmentById(id);
+        return ResponseEntity.ok(appointment);
     }
 
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) throws ResourceNotFoundException {
-        appointmentService.delete(id);
-        return ResponseEntity.ok("elemination avec succes: " + id);
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Appointment>> getAllAppointments() {
+        List<Appointment> appointments = appointmentService.getAllAppointments();
+        return ResponseEntity.ok(appointments);
     }
 
+    @PostMapping("/{id}/accept")
+    public ResponseEntity<Void> acceptAppointment(@PathVariable Long id) {
+        appointmentService.acceptAppointment(id);
+        return ResponseEntity.ok().build();
+    }
 
+    @PostMapping("/{id}/reject")
+    public ResponseEntity<Void> rejectAppointment(@PathVariable Long id) {
+        appointmentService.rejectAppointment(id);
+        return ResponseEntity.ok().build();
+    }
 }
-
