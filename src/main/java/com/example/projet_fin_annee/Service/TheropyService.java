@@ -18,6 +18,7 @@ import com.example.projet_fin_annee.Dto.TheropyDTO;
 import com.example.projet_fin_annee.Entity.Theropy;
 import com.example.projet_fin_annee.Exceptions.ResourceNotFoundException;
 import com.example.projet_fin_annee.Repository.ITheropyRepository;
+import com.example.projet_fin_annee.Exceptions.ResourceNotFoundException;
 
 @Service
 public class TheropyService implements ITheropyService {
@@ -61,5 +62,22 @@ public class TheropyService implements ITheropyService {
     public Optional<Theropy> findById(Long id) {
         return theropyRepository.findById(id);
     }
-  
+    
+    @Override
+    public TheropyDTO updateTheropy(Long id, TheropyDTO theropyDTO) throws IOException,ResourceNotFoundException {
+        Optional<Theropy> optionalTheropy = theropyRepository.findById(id);
+        if (optionalTheropy.isPresent()) {
+            Theropy theropy = optionalTheropy.get();
+            theropy.setName(theropyDTO.getName());
+            theropy.setDescription(theropyDTO.getDescription());
+            if (theropyDTO.getImg() != null) {
+                theropy.setImg(theropyDTO.getImg().getBytes());
+            }
+            return theropyRepository.save(theropy).getDto();
+        } else {
+            throw new ResourceNotFoundException("Theropy with id " + id + " not found");
+        }
+    }
+
 }
+  

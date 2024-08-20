@@ -72,6 +72,23 @@ public class TheropyController {
     	}
     	return ResponseEntity.notFound().build();
     }
-  
+    
+    @PutMapping("/update/{id}")
+    public ResponseEntity<TheropyDTO> updateTheropy(
+            @PathVariable Long id,
+            @RequestParam("name") String name,
+            @RequestParam("description") String description,
+            @RequestParam("img") MultipartFile img) throws IOException, ResourceNotFoundException {
+        
+        TheropyDTO theropyDTO = new TheropyDTO();
+        theropyDTO.setId(id);
+        theropyDTO.setName(name);
+        theropyDTO.setDescription(description);
+        theropyDTO.setImg(img);
+
+        TheropyDTO updatedTheropy = theropyService.updateTheropy(id, theropyDTO);
+        return ResponseEntity.ok(updatedTheropy);
+    }
+
     
 }

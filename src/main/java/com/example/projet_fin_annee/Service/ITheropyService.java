@@ -15,5 +15,6 @@ public interface ITheropyService {
     boolean delete(Long id) ;
     List<TheropyDTO> findAll();
     public Optional<Theropy> findById(Long id);
+    public TheropyDTO updateTheropy(Long id, TheropyDTO theropyDTO) throws IOException,ResourceNotFoundException;
     
 }
