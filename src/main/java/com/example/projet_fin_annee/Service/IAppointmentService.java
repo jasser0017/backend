@@ -16,5 +16,5 @@ public interface IAppointmentService {
     void acceptAppointment(Long id);
     void rejectAppointment(Long id);
 	
-	Appointment createAppointment(AppointmentDTO appointmentDTO, String userEmail);
+	Appointment createAppointment(AppointmentDTO appointmentDTO) throws ResourceNotFoundException;
 }

@@ -8,6 +8,7 @@
 /src/src/main/java/com/example/projet_fin_annee/Dto/PatientDTO.java
 /src/src/main/java/com/example/projet_fin_annee/Dto/ReceptionistDTO.java
 /src/src/main/java/com/example/projet_fin_annee/Dto/TheropyDTO.java
+/src/src/main/java/com/example/projet_fin_annee/Dto/UserDTO.java
 /src/src/main/java/com/example/projet_fin_annee/Entity/Appointment.java
 /src/src/main/java/com/example/projet_fin_annee/Entity/Theropy.java
 /src/src/main/java/com/example/projet_fin_annee/Entity/User.java
@@ -17,6 +18,7 @@
 /src/src/main/java/com/example/projet_fin_annee/Repository/ITheropyRepository.java
 /src/src/main/java/com/example/projet_fin_annee/Repository/IUserRepository.java
 /src/src/main/java/com/example/projet_fin_annee/Service/AppointmentService.java
+/src/src/main/java/com/example/projet_fin_annee/Service/EmailService.java
 /src/src/main/java/com/example/projet_fin_annee/Service/IAppointmentService.java
 /src/src/main/java/com/example/projet_fin_annee/Service/ITheropyService.java
 /src/src/main/java/com/example/projet_fin_annee/Service/IUserService.java

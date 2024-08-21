@@ -10,6 +10,7 @@ import com.example.projet_fin_annee.Entity.User;
 
 @Repository
 public interface IUserRepository extends JpaRepository<User, Long> {
+	
 	Optional<User> findByEmail(String email);
 
 	

@@ -17,15 +17,19 @@ public class Appointment {
     @Column(name = "DATE")
     private LocalDate date;
 
-    @Column(name = "DESCRIPTION")
-    private String description;
+    
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "USER_ID")
     private User user;
 
+
     @Column(name = "STATUS")
     private String status;
+    
+    @ManyToOne(fetch = FetchType.LAZY,optional= false)
+    @JoinColumn(name = "theropy_id", referencedColumnName = "ID", nullable = false)
+    private Theropy theropy;
 
 	public Long getId() {
 		return id;
@@ -43,13 +47,7 @@ public class Appointment {
 		this.date = date;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	
 
 	public User getUser() {
 		return user;
@@ -66,6 +64,18 @@ public class Appointment {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public Theropy getTheropy() {
+		return theropy;
+	}
+
+	
+
+	public void setTheropy(Theropy theropy) {
+		this.theropy = theropy;
+		
+	}
+	
     
 
     

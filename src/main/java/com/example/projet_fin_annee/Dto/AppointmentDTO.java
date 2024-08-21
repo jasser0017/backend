@@ -2,13 +2,16 @@ package com.example.projet_fin_annee.Dto;
 
 import java.time.LocalDate;
 
+import com.example.projet_fin_annee.Entity.User;
+
 public class AppointmentDTO {
 
     private Long id;
-    private LocalDate date;
-    private String description;
+    private String date;
+   
     private String status;
-    private String userEmail; // Ajoutez ce champ
+    private UserDTO user;
+    private Long theropyId;
 
     public Long getId() {
         return id;
@@ -18,23 +21,35 @@ public class AppointmentDTO {
         this.id = id;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
+   
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
+   
 
-    public String getDescription() {
-        return description;
-    }
+    public String getDate() {
+		return date;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public Long getTheropyId() {
+		return theropyId;
+	}
 
-    public String getStatus() {
+	public void setTheropyId(Long theropyId) {
+		this.theropyId = theropyId;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public UserDTO getUser() {
+		return user;
+	}
+
+	public void setUser(UserDTO user) {
+		this.user = user;
+	}
+
+	public String getStatus() {
         return status;
     }
 
@@ -42,11 +57,10 @@ public class AppointmentDTO {
         this.status = status;
     }
 
-    public String getUserEmail() {
-        return userEmail;
-    }
+	
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
+	
+	
+
+    
 }

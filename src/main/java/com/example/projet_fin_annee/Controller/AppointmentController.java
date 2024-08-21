@@ -23,11 +23,11 @@ public class AppointmentController {
    
     @PostMapping
     public ResponseEntity<Appointment> createAppointment(
-            @RequestBody AppointmentDTO appointmentDTO, 
-            @RequestParam String userEmail) {
+            @RequestBody AppointmentDTO appointmentDTO
+            ) throws ResourceNotFoundException {
         
         
-        Appointment createdAppointment = appointmentService.createAppointment(appointmentDTO, userEmail);
+        Appointment createdAppointment = appointmentService.createAppointment(appointmentDTO);
         return ResponseEntity.ok(createdAppointment);
     }
 
