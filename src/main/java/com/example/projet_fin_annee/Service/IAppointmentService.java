@@ -10,11 +10,12 @@ import com.example.projet_fin_annee.Exceptions.ResourceNotFoundException;
 
 public interface IAppointmentService {
 	
-    Appointment updateAppointment(Long id, AppointmentDTO appointmentDTO);
-    Optional<Appointment> getAppointmentById(Long id);
-    List<Appointment> getAllAppointments();
+    AppointmentDTO updateAppointment(Long id, AppointmentDTO appointmentDTO);
+    Optional<AppointmentDTO> getAppointmentById(Long id);
+    List<AppointmentDTO> getAllAppointments();
     void acceptAppointment(Long id);
     void rejectAppointment(Long id);
 	
-	Appointment createAppointment(AppointmentDTO appointmentDTO) throws ResourceNotFoundException;
+    AppointmentDTO createAppointment(AppointmentDTO appointmentDTO) throws ResourceNotFoundException;
+	void deleteAppointment(Long appointmentId) throws ResourceNotFoundException;
 }

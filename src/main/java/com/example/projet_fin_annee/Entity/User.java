@@ -3,6 +3,8 @@ package com.example.projet_fin_annee.Entity;
 import jakarta.persistence.*;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "USERS")
 public class User {
@@ -22,6 +24,7 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private Set<Appointment> appointments;
 
 	public Long getId() {

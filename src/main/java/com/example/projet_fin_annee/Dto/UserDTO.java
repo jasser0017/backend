@@ -2,15 +2,11 @@ package com.example.projet_fin_annee.Dto;
 
 public class UserDTO {
 	
-	private String name;
+	private String firstname;
+	private String lastname;
 	private String email;
 	private Long id;
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -25,6 +21,19 @@ public class UserDTO {
 		// TODO Auto-generated method stub
 		return id;
 	}
+	public String getFirstname() {
+		return firstname;
+	}
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+	public String getLastname() {
+		return lastname;
+	}
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+	
 	
 	
 	

@@ -1,8 +1,15 @@
 package com.example.projet_fin_annee.Entity;
 
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.example.projet_fin_annee.Dto.AppointmentDTO;
+import com.example.projet_fin_annee.Dto.UserDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+ import com.example.projet_fin_annee.Service.AppointmentService;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -29,6 +36,7 @@ public class Appointment {
     
     @ManyToOne(fetch = FetchType.LAZY,optional= false)
     @JoinColumn(name = "theropy_id", referencedColumnName = "ID", nullable = false)
+    @JsonBackReference
     private Theropy theropy;
 
 	public Long getId() {
@@ -75,6 +83,43 @@ public class Appointment {
 		this.theropy = theropy;
 		
 	}
+	
+	public AppointmentDTO getDto() {
+		AppointmentDTO appointmentDto = new AppointmentDTO();
+		appointmentDto.setId(id);
+		appointmentDto.setStatus(status);
+		appointmentDto.setTheropyId(id);
+		appointmentDto.setUser(convertUsertoUserDTO(user));
+		appointmentDto.setDate(convertFromLocalDateToString(date));
+		
+		return appointmentDto;
+	
+		
+		
+	}
+
+	 public UserDTO convertUsertoUserDTO(User user) {
+	        if (user == null) {
+	            return null;
+	        }
+
+	        UserDTO user1 = new UserDTO();
+	        user1.setId(user.getId());
+	        user1.setFirstname(user.getFirstname());
+	        user1.setLastname(user.getLastname());
+	        user1.setEmail(user.getEmail());
+
+	        return user1;
+	    }
+	 public String convertFromLocalDateToString(LocalDate date) {
+	        if (date == null) {
+	            System.err.println("Date invalide : null");
+	            return null;
+	        }
+	        return date.toString();
+	    }
+
+	
 	
     
 

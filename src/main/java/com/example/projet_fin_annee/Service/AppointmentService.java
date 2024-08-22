@@ -18,6 +18,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentService implements IAppointmentService {
@@ -45,28 +46,24 @@ public class AppointmentService implements IAppointmentService {
         }
     }
     
-    public User convertUserDtoToUser(UserDTO userDto) {
-        if (userDto == null) {
+    public User convertUserDTOtoUser(UserDTO userDTO) {
+        if (userDTO == null) {
             return null;
         }
 
-        User user = new User();
-        
-        
-        String[] nameParts = userDto.getName() != null ? userDto.getName().split(" ", 2) : new String[]{"", ""};
-        
-        user.setFirstname(nameParts.length > 0 ? nameParts[0] : "");
-        user.setLastname(nameParts.length > 1 ? nameParts[1] : "");
-        user.setEmail(userDto.getEmail());
-        user.setId(userDto.getId());
-        
-        
-        return user;
+        User user1 = new User();
+        user1.setId(userDTO.getId());
+        user1.setFirstname(userDTO.getFirstname());
+        user1.setLastname(userDTO.getLastname());
+        user1.setEmail(userDTO.getEmail());
+
+        return user1;
     }
+
 
     
     @Override
-    public Appointment createAppointment(AppointmentDTO appointmentDTO) throws ResourceNotFoundException {
+    public AppointmentDTO createAppointment(AppointmentDTO appointmentDTO) throws ResourceNotFoundException {
         Appointment appointment = new Appointment();
         appointment.setDate(convertFromStringToLocalDate(appointmentDTO.getDate()));
         
@@ -80,16 +77,17 @@ public class AppointmentService implements IAppointmentService {
         appointment.setTheropy(theropy);
         
         
-        appointment.setUser(convertUserDtoToUser(appointmentDTO.getUser()));
+        appointment.setUser(convertUserDTOtoUser(appointmentDTO.getUser()));
        
         
        // appointment.setUser();
         
-        return appointmentRepository.save(appointment);
+        
+        return appointmentRepository.save(appointment).getDto();
     }
    
     @Override
-    public Appointment updateAppointment(Long id, AppointmentDTO appointmentDTO) {
+    public AppointmentDTO updateAppointment(Long id, AppointmentDTO appointmentDTO) {
         if (appointmentRepository.existsById(id)) {
             Appointment appointment = new Appointment();
             appointment.setId(id);
@@ -97,19 +95,19 @@ public class AppointmentService implements IAppointmentService {
             appointment.setDate(convertFromStringToLocalDate(appointmentDTO.getDate()));
             
             appointment.setStatus(appointmentDTO.getStatus());
-            return appointmentRepository.save(appointment);
+            return appointmentRepository.save(appointment).getDto();
         }
         return null;
     }
 
     @Override
-    public Optional<Appointment> getAppointmentById(Long id) {
-        return appointmentRepository.findById(id);
+    public Optional<AppointmentDTO> getAppointmentById(Long id) {
+        return appointmentRepository.findById(id).map(this::getDto);
     }
 
     @Override
-    public List<Appointment> getAllAppointments() {
-        return appointmentRepository.findAll();
+    public List<AppointmentDTO> getAllAppointments() {
+        return appointmentRepository.findAll().stream().map(Appointment::getDto).collect(Collectors.toList());
     }
 
     @Override
@@ -138,4 +136,50 @@ public class AppointmentService implements IAppointmentService {
             
         });
     }
+    @Override
+    public void deleteAppointment(Long appointmentId) throws ResourceNotFoundException {
+        if (!appointmentRepository.existsById(appointmentId)) {
+            throw new ResourceNotFoundException("Appointment not found with ID: " + appointmentId);
+        }
+        appointmentRepository.deleteById(appointmentId);
+    }
+
+    public AppointmentDTO getDto(Appointment appointment) {
+		AppointmentDTO appointmentDto = new AppointmentDTO();
+		appointmentDto.setId(appointment.getId());
+		appointmentDto.setStatus(appointment.getStatus());
+		appointmentDto.setTheropyId(appointment.getId());
+		appointmentDto.setUser(convertUsertoUserDTO(appointment.getUser()));
+		appointmentDto.setDate(convertFromLocalDateToString(appointment.getDate()));
+		
+		return appointmentDto;
+		
+		
+    }
+    public UserDTO convertUsertoUserDTO(User user) {
+        if (user == null) {
+            return null;
+        }
+
+        UserDTO user1 = new UserDTO();
+        user1.setId(user.getId());
+        user1.setFirstname(user.getFirstname());
+        user1.setLastname(user.getLastname());
+        user1.setEmail(user.getEmail());
+
+        return user1;}
+	
+		 public String convertFromLocalDateToString(LocalDate date) {
+		        if (date == null) {
+		            System.err.println("Date invalide : null");
+		            return null;
+		        }
+		        return date.toString();
+		    
+
+		
+		
+	}
+    
+    
 }

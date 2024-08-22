@@ -22,31 +22,31 @@ public class AppointmentController {
    
    
     @PostMapping
-    public ResponseEntity<Appointment> createAppointment(
+    public ResponseEntity<AppointmentDTO> createAppointment(
             @RequestBody AppointmentDTO appointmentDTO
             ) throws ResourceNotFoundException {
         
         
-        Appointment createdAppointment = appointmentService.createAppointment(appointmentDTO);
+        AppointmentDTO createdAppointment = appointmentService.createAppointment(appointmentDTO);
         return ResponseEntity.ok(createdAppointment);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id, @RequestBody AppointmentDTO appointmentDTO) {
-        Appointment updatedAppointment = appointmentService.updateAppointment(id, appointmentDTO);
+    public ResponseEntity<AppointmentDTO> updateAppointment(@PathVariable Long id, @RequestBody AppointmentDTO appointmentDTO) {
+        AppointmentDTO updatedAppointment = appointmentService.updateAppointment(id, appointmentDTO);
         return updatedAppointment != null ? ResponseEntity.ok(updatedAppointment) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Appointment>> getAppointmentById(@PathVariable Long id) {
-        Optional<Appointment> appointment = appointmentService.getAppointmentById(id);
+    public ResponseEntity<Optional<AppointmentDTO>> getAppointmentById(@PathVariable Long id) {
+        Optional<AppointmentDTO> appointment = appointmentService.getAppointmentById(id);
         return ResponseEntity.ok(appointment);
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Appointment>> getAllAppointments() {
-        List<Appointment> appointments = appointmentService.getAllAppointments();
+    public ResponseEntity<List<AppointmentDTO>> getAllAppointments() {
+        List<AppointmentDTO> appointments = appointmentService.getAllAppointments();
         return ResponseEntity.ok(appointments);
     }
 
@@ -60,5 +60,15 @@ public class AppointmentController {
     public ResponseEntity<Void> rejectAppointment(@PathVariable Long id) {
         appointmentService.rejectAppointment(id);
         return ResponseEntity.ok().build();
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAppointment(@PathVariable("id") Long id) {
+        try {
+            appointmentService.deleteAppointment(id);
+            return ResponseEntity.noContent().build(); // Return 204 No Content if successful
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Return 404 Not Found if appointment does not exist
+        }
     }
 }
