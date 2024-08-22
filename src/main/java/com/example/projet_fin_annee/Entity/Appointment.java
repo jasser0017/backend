@@ -88,7 +88,7 @@ public class Appointment {
 		AppointmentDTO appointmentDto = new AppointmentDTO();
 		appointmentDto.setId(id);
 		appointmentDto.setStatus(status);
-		appointmentDto.setTheropyId(id);
+		appointmentDto.setTheropyId(theropy != null ? theropy.getId() : null);
 		appointmentDto.setUser(convertUsertoUserDTO(user));
 		appointmentDto.setDate(convertFromLocalDateToString(date));
 		

@@ -72,7 +72,7 @@ public class AppointmentService implements IAppointmentService {
         appointment.setStatus("Pending");
         
         Theropy theropy = theropyRepository.findById(appointmentDTO.getTheropyId())
-            .orElseThrow(() -> new ResourceNotFoundException("Theropy not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Theropy not found"));
         
         appointment.setTheropy(theropy);
         
